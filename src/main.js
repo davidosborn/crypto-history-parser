@@ -4,6 +4,7 @@ import getopt, {usage} from '@davidosborn/getopt'
 import csvParse from 'csv-parse'
 import fs from 'fs'
 import process from 'process'
+import sortStream from 'sort-stream2'
 import utf8 from 'to-utf-8'
 import jsonStream from './json-stream'
 import normalizeStream from './normalize-stream'
@@ -50,8 +51,19 @@ export default async function main(args) {
 			skip_empty_lines: true
 		}))
 		.pipe(normalizeStream())
+		.pipe(sortStream(_compareTime))
 		.pipe(jsonStream())
 
 	// Pipe the stream to the output file.
 	stream.pipe(destination ? fs.createWriteStream(destination) : process.stdout)
+}
+
+/**
+ * Compares records by their time.
+ * @param {Object} a The first record.
+ * @param {Object} b The second record.
+ * @returns {Number} The result.
+ */
+function _compareTime(a, b) {
+	return a.time - b.time
 }

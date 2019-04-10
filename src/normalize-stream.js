@@ -9,13 +9,23 @@ class NormalizeStream extends stream.Transform {
 	static _converters = {
 		'Date|Price|Open|High|Low|Vol.|Change %': function(x) {
 			return {
-				time: new Date(x.Date).getTime(),
-				open: parseFloat(x.Open),
-				close: parseFloat(x.Price),
-				high: parseFloat(x.High),
-				low: parseFloat(x.Low),
-				volume: parseFloat(x['Vol.']),
-				change: parseFloat(x['Change %'])
+				time:   new Date(x.Date).getTime(),
+				open:   NormalizeStream._parseNumber(x.Open),
+				close:  NormalizeStream._parseNumber(x.Price),
+				high:   NormalizeStream._parseNumber(x.High),
+				low:    NormalizeStream._parseNumber(x.Low),
+				volume: NormalizeStream._parseNumber(x['Vol.']),
+				change: NormalizeStream._parseNumber(x['Change %'])
+			}
+		},
+		'Date|Price|Open|High|Low|Change %': function(x) {
+			return {
+				time:   new Date(x.Date).getTime(),
+				open:   NormalizeStream._parseNumber(x.Open),
+				close:  NormalizeStream._parseNumber(x.Price),
+				high:   NormalizeStream._parseNumber(x.High),
+				low:    NormalizeStream._parseNumber(x.Low),
+				change: NormalizeStream._parseNumber(x['Change %'])
 			}
 		}
 	}
@@ -43,6 +53,15 @@ class NormalizeStream extends stream.Transform {
 
 		this.push(chunk)
 		callback()
+	}
+
+	/**
+	 * Parses a number.
+	 * @param {String} s The string.
+	 * @returns {Number} The number.
+	 */
+	static _parseNumber(s) {
+		return parseFloat(s.replace(',', ''))
 	}
 }
 

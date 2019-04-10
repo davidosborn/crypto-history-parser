@@ -36,6 +36,7 @@
 	"dependencies": {
 		"@davidosborn/getopt": "*",
 		"csv-parse": "*",
+		"sort-stream2": "*",
 		"to-utf-8": "*"
 	},
 	"devDependencies": {
