@@ -1,6 +1,6 @@
 {
 	"name": "@davidosborn/crypto-history-parser",
-	"version": "0.0.10",
+	"version": "0.0.1",
 	"description": "A tool to parse the history of the cryptocurrency market",
 	"keywords": [
 		"crypto",
