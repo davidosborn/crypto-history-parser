@@ -1,0 +1,55 @@
+{
+	"name": "@davidosborn/crypto-history-parser",
+	"version": "0.0.10",
+	"description": "A tool to parse the history of the cryptocurrency market",
+	"keywords": [
+		"crypto",
+		"history",
+		"parser"
+	],
+	"homepage": "https://github.com/davidosborn/crypto-history-parser#readme",
+	"bugs": {
+		"url": "https://github.com/davidosborn/crypto-history-parser/issues",
+		"email": "david@davidosborn.io"
+	},
+	"license": "MIT",
+	"author": {
+		"name": "David Osborn",
+		"email": "david@davidosborn.io",
+		"url": "http://davidosborn.io/"
+	},
+	"files": [
+		"lib",
+		"src"
+	],
+	"main": "index.js",
+	"bin": "index.js",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/davidosborn/crypto-history-parser"
+	},
+	"scripts": {
+		"build": "npx babel -d lib src",
+		"prepublishOnly": "npm run build",
+		"start": "node index"
+	},
+	"dependencies": {
+		"@davidosborn/getopt": "*",
+		"csv-parse": "*",
+		"to-utf-8": "*"
+	},
+	"devDependencies": {
+		"@babel/cli": "*",
+		"@babel/core": "*",
+		"@babel/register": "*",
+		"@davidosborn/babel-preset": "*"
+	},
+	"publishConfig": {
+		"access": "public"
+	},
+	"babel": {
+		"presets": [
+			"@davidosborn/babel-preset"
+		]
+	}
+}
