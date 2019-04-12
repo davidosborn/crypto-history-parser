@@ -6,6 +6,10 @@ import stream from 'stream'
  * Normalizes a stream of historical records.
  */
 class NormalizeStream extends stream.Transform {
+	/**
+	 * The converters that can be used to normalize a record, indexed by the keys of the record.
+	 * @type {Object.<String, Function.<Object>>}
+	 */
 	static _converters = {
 		'Date|Price|Open|High|Low|Vol.|Change %': function(x) {
 			return {
@@ -38,9 +42,9 @@ class NormalizeStream extends stream.Transform {
 
 	/**
 	 * Normalizes a historical record.
-	 * @param {CapitalGains} chunk    The historical record.
-	 * @param {string}       encoding The encoding type (always 'Buffer').
-	 * @param {function}     callback A callback for when the transformation is complete.
+	 * @param {object}   chunk    The historical record.
+	 * @param {string}   encoding The encoding type (always 'Buffer').
+	 * @param {function} callback A callback for when the transformation is complete.
 	 */
 	_transform(chunk, encoding, callback) {
 		delete chunk.flatten
@@ -57,8 +61,8 @@ class NormalizeStream extends stream.Transform {
 
 	/**
 	 * Parses a number.
-	 * @param {String} s The string.
-	 * @returns {Number} The number.
+	 * @param {string} s The string.
+	 * @returns {number} The number.
 	 */
 	static _parseNumber(s) {
 		return parseFloat(s.replace(',', ''))
